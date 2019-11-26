@@ -25,25 +25,37 @@ public class PizzaPrep {
 		
 		ExecutorService pool = Executors.newCachedThreadPool();
 		
-		Callable<Pizza> task1 = () -> {
+		Runnable task1 = () -> {
 		
 		System.out.println("Slicing");
 		System.out.println("spread sauce on crust");
 		System.out.println("spread the sliced veggies");
 		System.out.println("spread cheese");
 		System.out.println("Bake");
-		TimeUnit.SECONDS.sleep(2);
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		Pizza pizza = new Pizza();
-		return pizza;
+		//return pizza;
 		};
 		
-		Future<Pizza> pickPizza = pool.submit(task1);
+		Future<?> pickPizza = pool.submit(task1);
 		
 		System.out.println("ME: call my brother");
 		TimeUnit.SECONDS.sleep(3);
 		System.out.println("ME: walk the dog");
 		
-		Pizza  pizza = pickPizza.get();
+		pickPizza.cancel(true);
+		if(pickPizza.isCancelled()) {
+			System.out.println("ME: pizza is cancelled, order something else");
+			System.out.println("pickPizza.isDone(): " + pickPizza.isDone());
+		}else if(!pickPizza.isDone()) {
+			System.out.println("Me: watch tv");
+		}
+		
+		Object pizza = pickPizza.get();
 		System.out.println("ME: Eat the pizza");
 		pool.shutdown();
 		
