@@ -6,7 +6,7 @@ public class AppleTree {
 	
 	public static AppleTree[] newAppleTreeGarden(int size) {
 		AppleTree[] appleTrees = new AppleTree[size];
-		for(int aNum = 1; aNum <= appleTrees.length; aNum++) {
+		for(int aNum = 0; aNum < appleTrees.length; aNum++) {
 			appleTrees[aNum] = new AppleTree("#" + aNum);
 		}
 		return appleTrees;
@@ -23,7 +23,8 @@ public class AppleTree {
 
 	public int pickApples(String workerName) throws InterruptedException {
 		System.out.println("started picking the apples");
-		TimeUnit.SECONDS.sleep(1000);
+		TimeUnit.SECONDS.sleep(2);
+		System.out.printf("%s picked %d apples from %s\n", workerName, noOfApples, appleTreeName);
 		return noOfApples;		
 	}
 	
