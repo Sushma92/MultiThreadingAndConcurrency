@@ -12,7 +12,7 @@ public class PizzaPrep {
 	public static class Pizza{
 
 		public String toString() {
-			return "cheese pizza";
+			return "pizza ready";
 		}
 	}
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
